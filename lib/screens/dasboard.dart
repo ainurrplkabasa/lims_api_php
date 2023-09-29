@@ -122,7 +122,7 @@ class HomePage extends StatelessWidget {
                           color: Colors.blue,
                           borderRadius: BorderRadius.circular(8),
                           image: const DecorationImage(
-                            image: AssetImage("assets/images/users.jpg"),
+                            image: AssetImage("assets/images/user baru.jpg"),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -160,10 +160,10 @@ class HomePage extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: Color.fromARGB(255, 207, 208, 209),
                         borderRadius: BorderRadius.circular(8),
-                        // image: const DecorationImage(
-                        //   image: AssetImage("assets/images/tut wuri.png"),
-                        //   fit: BoxFit.cover,
-                        // ),
+                        image: const DecorationImage(
+                          image: AssetImage("assets/images/laporan.jpg"),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                       child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -194,10 +194,10 @@ class HomePage extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: Color.fromARGB(255, 207, 208, 209),
                         borderRadius: BorderRadius.circular(8),
-                        // image: const DecorationImage(
-                        //   image: AssetImage("assets/images/boe malang.png"),
-                        //   fit: BoxFit.cover,
-                        // ),
+                        image: const DecorationImage(
+                          image: AssetImage("assets/images/about.jpg"),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                       child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,10 +228,10 @@ class HomePage extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 207, 208, 209),
                         borderRadius: BorderRadius.circular(8),
-                        // image: const DecorationImage(
-                        //   image: AssetImage("assets/images/tut wuri.png"),
-                        //   fit: BoxFit.cover,
-                        // ),
+                        image: const DecorationImage(
+                          image: AssetImage("assets/images/support.png"),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                       child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -239,7 +239,7 @@ class HomePage extends StatelessWidget {
                         children: [
                           Center(
                             child: Text(
-                              "Abouts 3",
+                              "Supports",
                               style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
