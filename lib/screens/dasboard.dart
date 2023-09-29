@@ -102,7 +102,7 @@ class HomePage extends StatelessWidget {
                                 style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 253, 251, 251)),
+                                    color: Color.fromARGB(255, 12, 12, 12)),
                               ),
                             ),
                           ],
@@ -136,7 +136,7 @@ class HomePage extends StatelessWidget {
                                 style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 250, 248, 248)),
+                                    color: Color.fromARGB(255, 12, 12, 12)),
                               ),
                             ),
                           ],
@@ -171,11 +171,11 @@ class HomePage extends StatelessWidget {
                         children: [
                           Center(
                             child: Text(
-                              "Abouts",
+                              "Laporan",
                               style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 250, 248, 248)),
+                                  color: Color.fromARGB(255, 12, 12, 12)),
                             ),
                           ),
                         ],
@@ -205,11 +205,11 @@ class HomePage extends StatelessWidget {
                         children: [
                           Center(
                             child: Text(
-                              "Abouts 2",
+                              "Abouts",
                               style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 250, 248, 248)),
+                                  color: Color.fromARGB(255, 12, 12, 12)),
                             ),
                           ),
                         ],
@@ -243,7 +243,7 @@ class HomePage extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 250, 248, 248)),
+                                  color: Color.fromARGB(255, 12, 12, 12)),
                             ),
                           ),
                         ],
