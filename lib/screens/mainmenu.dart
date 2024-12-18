@@ -7,6 +7,7 @@ import 'package:animated_search_bar/animated_search_bar.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:login_app/components/date_input.dart';
+import 'package:login_app/screens/report_borrow.dart';
 import 'package:intl/intl.dart';
 import 'package:path/path.dart' as path;
 import 'package:http/http.dart' as http;
@@ -561,15 +562,34 @@ class _MainMenuState extends State<MainMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            showDialog<void>(
-                context: context,
-                builder: (BuildContext context) {
-                  return _alertDialog();
-                });
-          },
-          child: Icon(Icons.add),
+        floatingActionButton: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              onPressed: () {
+                showDialog<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return _alertDialog();
+                    });
+              },
+              tooltip: 'add Borrow',
+              child: Icon(Icons.add),
+            ),
+            SizedBox(height: 16.0),
+            FloatingActionButton(
+              onPressed: () {
+                showDialog<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return ReportBorrow();
+                    });
+              },
+              tooltip: 'Print Data Borrow',
+              child: Icon(Icons.print),
+            ),
+          ],
         ),
         appBar: AppBar(
           backgroundColor: Colors.blueAccent,
@@ -591,46 +611,49 @@ class _MainMenuState extends State<MainMenu> {
             },
           ),
         ),
-        body: ListView.builder(
-          itemCount: data.length,
-          itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-              leading: Container(
-                  width: 40,
-                  height: 250,
-                  child: _displayMedia(data[index]['foto'])),
-              title: Text(data[index]['nama_peminjam'],
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  )),
-              subtitle: Text(
-                  'Tgl Kembali : ${data[index]['tgl_kembali']} Status : ${data[index]['status']}'),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                      onPressed: () {
-                        showDialog<void>(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return _alertDialogUpdate(data[index]);
-                            });
-                      },
-                      icon: Icon(Icons.edit)),
-                  IconButton(
-                      onPressed: () {
-                        showDialog<void>(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return _alertDialogDetail(data[index]);
-                            });
-                      },
-                      icon: Icon(Icons.details_outlined)),
-                ],
-              ),
-            );
-          },
+        body: Container(
+          padding: EdgeInsets.only(top: 20),
+          child: ListView.builder(
+            itemCount: data.length,
+            itemBuilder: (BuildContext context, int index) {
+              return ListTile(
+                leading: Container(
+                    width: 40,
+                    height: 250,
+                    child: _displayMedia(data[index]['foto'])),
+                title: Text(data[index]['nama_peminjam'],
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    )),
+                subtitle: Text(
+                    'Tgl Kembali : ${data[index]['tgl_kembali']} Status : ${data[index]['status']}'),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          showDialog<void>(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return _alertDialogUpdate(data[index]);
+                              });
+                        },
+                        icon: Icon(Icons.edit)),
+                    IconButton(
+                        onPressed: () {
+                          showDialog<void>(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return _alertDialogDetail(data[index]);
+                              });
+                        },
+                        icon: Icon(Icons.details_outlined)),
+                  ],
+                ),
+              );
+            },
+          ),
         ));
   }
 }
