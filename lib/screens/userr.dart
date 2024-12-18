@@ -179,7 +179,7 @@ class _userItemState extends State<userItem> {
     TextEditingController ctrlPassword = TextEditingController();
 
     ctrlUsername.text = data['username'];
-    ctrlPassword.text = data['password'];
+    //ctrlPassword.text = data['password'];
 
     return AlertDialog(
       title: Text('Update Data'),
@@ -343,9 +343,15 @@ class _userItemState extends State<userItem> {
         ),
         appBar: AppBar(
           backgroundColor: Colors.blueAccent,
+          leading: BackButton(
+            color: Colors.white,
+          ),
           title: AnimatedSearchBar(
+            label: "Search Users",
+            labelAlignment: Alignment.center,
+            labelStyle: TextStyle(color: Colors.white),
             searchDecoration: const InputDecoration(
-              hintText: "Search",
+              hintText: "Search Users",
               alignLabelWithHint: true,
               fillColor: Colors.white,
               focusColor: Colors.white,

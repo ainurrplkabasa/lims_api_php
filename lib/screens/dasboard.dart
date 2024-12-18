@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.asset(
-                "assets/images/login logo.png",
+                "assets/images/boelims.png",
                 width: 150,
                 height: 150,
               ),
@@ -26,14 +26,16 @@ class HomePage extends StatelessWidget {
                 padding: EdgeInsets.only(top: 1, bottom: 1),
                 child: Text(
                   "Library Inventory Managemen System",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(bottom: 5),
-                child: Text(
-                  "Welcome : ${db.getUser?['username']}",
-                  style: TextStyle(fontSize: 16),
+                padding: EdgeInsets.only(bottom: 8),
+                child: Container(
+                  child: Text(
+                    "Welcome : ${db.getUser?['username']}",
+                    style: TextStyle(fontSize: 16),
+                  ),
                 ),
               ),
               SingleChildScrollView(
@@ -53,8 +55,7 @@ class HomePage extends StatelessWidget {
                           color: Colors.blue,
                           borderRadius: BorderRadius.circular(8),
                           image: const DecorationImage(
-                            image: AssetImage(
-                                "assets/images/gambar peminjaman.png"),
+                            image: AssetImage("assets/images/borrow.jpg"),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -88,7 +89,7 @@ class HomePage extends StatelessWidget {
                           color: Colors.blue,
                           borderRadius: BorderRadius.circular(8),
                           image: const DecorationImage(
-                            image: AssetImage("assets/images/gambar item.jpg"),
+                            image: AssetImage("assets/images/item.jpg"),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -102,7 +103,7 @@ class HomePage extends StatelessWidget {
                                 style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 12, 12, 12)),
+                                    color: Color.fromARGB(255, 247, 243, 243)),
                               ),
                             ),
                           ],
@@ -122,7 +123,7 @@ class HomePage extends StatelessWidget {
                           color: Colors.blue,
                           borderRadius: BorderRadius.circular(8),
                           image: const DecorationImage(
-                            image: AssetImage("assets/images/user baru.jpg"),
+                            image: AssetImage("assets/images/user.jpg"),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -136,7 +137,7 @@ class HomePage extends StatelessWidget {
                                 style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 12, 12, 12)),
+                                    color: Color.fromARGB(255, 15, 15, 15)),
                               ),
                             ),
                           ],
@@ -150,12 +151,47 @@ class HomePage extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      // Navigator.pushNamed(context, '/userr');
+                      Navigator.pushNamed(context, '/report_borrow');
                     },
                     child: Container(
                       height: 205,
                       width: 120,
-                      margin: const EdgeInsets.only(right: 8),
+                      margin: const EdgeInsets.only(right: 8, top: 18),
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 207, 208, 209),
+                        borderRadius: BorderRadius.circular(8),
+                        image: const DecorationImage(
+                          image:
+                              AssetImage("assets/images/gambar peminjaman.png"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Center(
+                            child: Text(
+                              "Report Borrow",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 12, 12, 12)),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/report_item');
+                    },
+                    child: Container(
+                      height: 205,
+                      width: 120,
+                      margin: const EdgeInsets.only(right: 8, top: 18),
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         color: Color.fromARGB(255, 207, 208, 209),
@@ -171,7 +207,7 @@ class HomePage extends StatelessWidget {
                         children: [
                           Center(
                             child: Text(
-                              "Laporan",
+                              "Report Item",
                               style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -189,41 +225,7 @@ class HomePage extends StatelessWidget {
                     child: Container(
                       height: 205,
                       width: 120,
-                      margin: const EdgeInsets.all(2),
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 207, 208, 209),
-                        borderRadius: BorderRadius.circular(8),
-                        image: const DecorationImage(
-                          image: AssetImage("assets/images/about.jpg"),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Center(
-                            child: Text(
-                              "Abouts",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 12, 12, 12)),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      // Navigator.pushNamed(context, '/userr');
-                    },
-                    child: Container(
-                      height: 205,
-                      width: 120,
-                      margin: const EdgeInsets.all(8),
+                      margin: const EdgeInsets.only(right: 1, top: 18),
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 207, 208, 209),
@@ -253,11 +255,11 @@ class HomePage extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.all(60.0),
+                padding: const EdgeInsets.all(40.0),
               ),
               SizedBox(
                 width: double.infinity,
-                height: 40,
+                height: 50,
                 child: ElevatedButton(
                   onPressed: () async {
                     await db.logout();
@@ -266,7 +268,7 @@ class HomePage extends StatelessWidget {
                         context, '/', (r) => false);
                   },
                   style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll<Color>(
+                    backgroundColor: WidgetStatePropertyAll<Color>(
                         Color.fromARGB(255, 247, 59, 2)),
                   ),
                   child: Text(

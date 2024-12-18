@@ -1,6 +1,6 @@
 {
-    "name": "login_app",
-    "short_name": "login_app",
+    "name": "Laboratory Inventory Management System",
+    "short_name": "LIMS",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

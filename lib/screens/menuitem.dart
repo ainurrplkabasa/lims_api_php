@@ -5,12 +5,15 @@ import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:barcode_scan2/platform_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:animated_search_bar/animated_search_bar.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:login_app/common/conts.dart';
 import 'package:login_app/screens/qrcodepage.dart';
 import 'package:path/path.dart' as path;
 import 'package:http/http.dart' as http;
+import 'package:login_app/components/date_input.dart';
 
 class MenuItem extends StatefulWidget {
   const MenuItem({super.key});
@@ -27,13 +30,34 @@ class _MenuItemState extends State<MenuItem> {
   @override
   void initState() {
     getData('');
+    getData2('');
     super.initState();
   }
 
   Future getData(String? search) async {
-    var response;
     var uri = Uri.parse('$BASE_URL/search_item.php?kd=$search');
-    response = await http.get(uri);
+    var response = await http.get(uri);
+    if (response.statusCode == 200) {
+      print('Response : ${response.body}');
+      setState(() {
+        data = json.decode(response.body);
+      });
+    } else {
+      return Fluttertoast.showToast(
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        msg: 'Something went wrong ${response.statusCode}',
+        toastLength: Toast.LENGTH_SHORT,
+      );
+    }
+  }
+
+  Future getData2(String search) async {
+    var response;
+    var uri = Uri.parse('$BASE_URL/search_text_item.php');
+    response = await http.post(uri, body: {
+      "search": search,
+    });
     if (response.statusCode == 200) {
       setState(() {
         data = json.decode(response.body);
@@ -56,6 +80,7 @@ class _MenuItemState extends State<MenuItem> {
       String sumberDana,
       String keterangan,
       int jumlah,
+      DateTime tglPengadaan,
       File imageFile) async {
     // ignore: deprecated_member_use
     var stream = http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
@@ -74,6 +99,7 @@ class _MenuItemState extends State<MenuItem> {
     request.fields['sumber_dana'] = sumberDana;
     request.fields['keterangan'] = keterangan;
     request.fields['jumlah'] = jumlah.toString();
+    request.fields['tgl_pengadaan'] = tglPengadaan.toString();
 
     var response = await request.send();
 
@@ -158,7 +184,8 @@ class _MenuItemState extends State<MenuItem> {
       int tahunanggaran,
       String sumberdana,
       String keterangan,
-      int jumlah) async {
+      int jumlah,
+      DateTime tglPengadaan) async {
     var response;
     var uri = Uri.parse('$BASE_URL/update_item.php');
     response = await http.post(uri, body: {
@@ -169,7 +196,8 @@ class _MenuItemState extends State<MenuItem> {
       "tahun_anggaran": tahunanggaran.toString(),
       "sumber_dana": sumberdana,
       "keterangan": keterangan,
-      "jumlah": jumlah.toString()
+      "jumlah": jumlah.toString(),
+      "tgl_pengadaan": tglPengadaan.toString(),
     });
     if (response.statusCode == 200) {
       getData('');
@@ -197,6 +225,7 @@ class _MenuItemState extends State<MenuItem> {
     TextEditingController ctrlSumberdana = TextEditingController();
     TextEditingController ctrlKeterangan = TextEditingController();
     TextEditingController ctrlJumlah = TextEditingController();
+    TextEditingController ctrlTglpengadaan = TextEditingController();
 
     ctrlNamaitem.text = data['nama_item'];
     ctrlSpesifikasi.text = data['spesifikasi'];
@@ -205,6 +234,7 @@ class _MenuItemState extends State<MenuItem> {
     ctrlSumberdana.text = data['sumber_dana'];
     ctrlKeterangan.text = data['keterangan'];
     ctrlJumlah.text = data['jumlah'];
+    ctrlTglpengadaan.text = data['tgl_pengadaan'];
 
     return AlertDialog(
       title: Text('Update Data'),
@@ -267,6 +297,7 @@ class _MenuItemState extends State<MenuItem> {
                   label: Text('Jumlah'),
                 ),
               ),
+              DateInput(controller: ctrlTglpengadaan, hint: 'Tgl Pengandaan'),
             ],
           ),
         ),
@@ -288,7 +319,9 @@ class _MenuItemState extends State<MenuItem> {
                 int.parse(ctrlTahunanggaran.text),
                 ctrlSumberdana.text,
                 ctrlKeterangan.text,
-                int.parse(ctrlJumlah.text));
+                int.parse(ctrlJumlah.text),
+                DateTime.parse(ctrlTglpengadaan.text));
+
             Navigator.of(context).pop();
           },
           child: const Text('Simpan'),
@@ -298,6 +331,9 @@ class _MenuItemState extends State<MenuItem> {
   }
 
   StatefulBuilder _alertDialog() {
+    DateTime dateTime = DateTime.now();
+    String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
+
     TextEditingController ctrlNamaitem = TextEditingController();
     TextEditingController ctrlSpesifikasi = TextEditingController();
     TextEditingController ctrlMerk = TextEditingController();
@@ -305,7 +341,8 @@ class _MenuItemState extends State<MenuItem> {
     TextEditingController ctrlSumberdana = TextEditingController();
     TextEditingController ctrlKeterangan = TextEditingController();
     TextEditingController ctrlJumlah = TextEditingController();
-    //TextEditingController ctrlFoto = TextEditingController();
+    TextEditingController ctrlPengadaan =
+        TextEditingController(text: formattedDate.toString());
 
     return StatefulBuilder(builder: (context, setState) {
       return AlertDialog(
@@ -355,6 +392,7 @@ class _MenuItemState extends State<MenuItem> {
                   label: Text('Jumlah'),
                 ),
               ),
+              DateInput(controller: ctrlPengadaan, hint: 'Tgl Pengadaan'),
               SizedBox(
                 height: 10,
               ),
@@ -412,6 +450,7 @@ class _MenuItemState extends State<MenuItem> {
                   ctrlSumberdana.text,
                   ctrlKeterangan.text,
                   int.parse(ctrlJumlah.text),
+                  DateTime.parse(ctrlPengadaan.text),
                   imageFile!);
               getData('');
               Navigator.of(context).pop();
@@ -446,14 +485,31 @@ class _MenuItemState extends State<MenuItem> {
         leading: BackButton(
           color: Colors.white,
         ),
-        title: Text(
-          'Data Item',
-          style: TextStyle(color: Colors.white),
+        title: AnimatedSearchBar(
+          label: "Search Items",
+          labelAlignment: Alignment.center,
+          labelStyle: TextStyle(color: Colors.white),
+          searchDecoration: const InputDecoration(
+            hintText: "Search Item",
+            alignLabelWithHint: true,
+            fillColor: Colors.white,
+            focusColor: Colors.white,
+            hintStyle: TextStyle(color: Colors.white70),
+            border: InputBorder.none,
+          ),
+          searchStyle: TextStyle(fontSize: 17),
+          onChanged: (value) {
+            setState(() {
+              searchText = value;
+              getData2(value);
+            });
+          },
         ),
         actions: [
           InkWell(
             onTap: () async {
               var result = await BarcodeScanner.scan();
+              print('Here : ${result.rawContent}');
               await getData(result.rawContent);
             },
             child: Icon(

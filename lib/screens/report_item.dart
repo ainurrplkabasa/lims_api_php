@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:printing/printing.dart';
-import 'api_service.dart';
-import 'pdf_generator.dart';
+import 'api_item.dart';
+import 'pdf_generate_item.dart';
 
-class ReportBorrow extends StatefulWidget {
-  const ReportBorrow({super.key});
+class ReportItem extends StatefulWidget {
+  const ReportItem({super.key});
 
   @override
-  State<ReportBorrow> createState() => _ReportBorrowState();
+  State<ReportItem> createState() => _ReportItemState();
 }
 
-class _ReportBorrowState extends State<ReportBorrow> {
-  final ApiService apiService = ApiService();
-  final PdfGenerator pdfGenerator = PdfGenerator();
+class _ReportItemState extends State<ReportItem> {
+  final ApiItem apiItem = ApiItem();
+  final PdfGenerateItem pdfGenerator = PdfGenerateItem();
 
   List<dynamic> laporan = [];
   bool isLoading = true;
@@ -25,7 +25,7 @@ class _ReportBorrowState extends State<ReportBorrow> {
 
   Future<void> fetchData() async {
     try {
-      final data = await apiService.fetchLaporan();
+      final data = await apiItem.fetchLaporan();
       setState(() {
         laporan = data;
         isLoading = false;
@@ -54,9 +54,9 @@ class _ReportBorrowState extends State<ReportBorrow> {
                     itemBuilder: (context, index) {
                       final item = laporan[index];
                       return ListTile(
-                        title: Text(item['nama_peminjam']),
-                        subtitle: Text(item['tgl_pinjam']),
-                        trailing: Text(item['tgl_kembali']),
+                        title: Text(item['nama_item']),
+                        subtitle: Text(item['spesifikasi']),
+                        trailing: Text(item['jumlah']),
                       );
                     },
                   ),

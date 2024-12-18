@@ -8,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:login_app/components/date_input.dart';
 import 'package:login_app/screens/report_borrow.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
 import 'package:intl/intl.dart';
 import 'package:path/path.dart' as path;
 import 'package:http/http.dart' as http;
@@ -44,6 +46,27 @@ class _MainMenuState extends State<MainMenu> {
   }
 
   var dropdownvalue;
+
+  Future<Uint8List> generatePdf(List<Map<String, dynamic>> data) async {
+    final pdf = pw.Document();
+
+    // Add content to the PDF
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) {
+          return pw.ListView.builder(
+            itemCount: data.length,
+            itemBuilder: (context, index) {
+              return pw.Text(data[index]['field_name']);
+            },
+          );
+        },
+      ),
+    );
+
+    // Generate the PDF and return as bytes
+    return pdf.save();
+  }
 
   Future getAllCategory() async {
     var baseUrl = "$BASE_URL/search_item_in_borrow.php";
@@ -577,26 +600,20 @@ class _MainMenuState extends State<MainMenu> {
               tooltip: 'add Borrow',
               child: Icon(Icons.add),
             ),
-            SizedBox(height: 16.0),
-            FloatingActionButton(
-              onPressed: () {
-                showDialog<void>(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return ReportBorrow();
-                    });
-              },
-              tooltip: 'Print Data Borrow',
-              child: Icon(Icons.print),
-            ),
           ],
         ),
         appBar: AppBar(
           backgroundColor: Colors.blueAccent,
+          leading: BackButton(
+            color: Colors.white,
+          ),
           title: AnimatedSearchBar(
+            label: "Search Borrows",
+            labelAlignment: Alignment.center,
+            labelStyle: TextStyle(color: Colors.white),
             searchDecoration: const InputDecoration(
-              hintText: "Search",
-              alignLabelWithHint: true,
+              hintText: "Search Borrows",
+              alignLabelWithHint: false,
               fillColor: Colors.white,
               focusColor: Colors.white,
               hintStyle: TextStyle(color: Colors.white70),
@@ -648,7 +665,7 @@ class _MainMenuState extends State<MainMenu> {
                                 return _alertDialogDetail(data[index]);
                               });
                         },
-                        icon: Icon(Icons.details_outlined)),
+                        icon: Icon(Icons.list)),
                   ],
                 ),
               );

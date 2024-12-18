@@ -6,6 +6,7 @@ import 'package:login_app/screens/mainmenu.dart';
 import 'package:login_app/screens/dasboard.dart';
 import 'package:login_app/screens/menuitem.dart';
 import 'package:login_app/screens/report_borrow.dart';
+import 'package:login_app/screens/report_item.dart';
 import 'package:login_app/screens/userr.dart';
 
 import 'storages/user_local.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
     final UserLocal db = UserLocal();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Login Page',
+      title: 'LIMS',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -36,6 +37,8 @@ class MyApp extends StatelessWidget {
         '/halaman_dua': (context) => const HalamanDua(),
         '/menuitem': (context) => const MenuItem(),
         '/userr': (context) => const userItem(),
+        '/report_borrow': (context) => const ReportBorrow(),
+        '/report_item': (context) => const ReportItem(),
       },
     );
   }
